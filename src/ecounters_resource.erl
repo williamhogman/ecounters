@@ -23,7 +23,6 @@ content_types_provided(ReqData, State) ->
     ],
     {Types, ReqData, State}.
 
--spec to_html(wrq:reqdata(), term()) -> {iodata(), wrq:reqdata(), term()}.
 
 html_link(URL, Text)->
     "<a href='" ++ URL ++ "'>" ++ Text ++ "</a>".
@@ -36,6 +35,9 @@ li_list([{Text, URL}|T]) ->
     [Line|li_list(T)];
 li_list([]) -> [].
 
+
+
+-spec to_html(wrq:reqdata(), term()) -> {iodata(), wrq:reqdata(), term()}.
 to_html(ReqData, State) ->
     List = li_list(links()),
     Prefix = "<html><body><ul>",
@@ -48,7 +50,7 @@ to_html(ReqData, State) ->
 json_body(QS) -> mochijson:encode({struct, QS}).
 
 to_json(ReqData, State) ->
-    json_body(links()).
+    {json_body(links()), ReqData, State}.
     
 
 

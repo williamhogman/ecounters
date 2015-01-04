@@ -8,7 +8,8 @@
 -spec dispatch() -> [webmachine_dispatcher:route()].
 dispatch() ->
     lists:flatten([
-        {[], ecounters_resource, []}
+		   {[], ecounters_resource, []},
+		   {["counters", counter_id], counter_resource, []}
     ]).
 
 web_config() ->
